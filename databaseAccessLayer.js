@@ -1,10 +1,10 @@
 const database = include("/databaseConnection");
 const passwordPepper = "SeCretPeppa4MySal+";
 
-async function getAllUsers() {
+async function getRestaurantInfo() {
   let sqlQuery = `
-		SELECT web_user_id, first_name, last_name, email
-		FROM web_user;
+		SELECT restaurant_id, name, description
+		FROM restaurant;
 	`;
 
   try {
@@ -12,7 +12,24 @@ async function getAllUsers() {
     console.log(results[0]);
     return results[0];
   } catch (err) {
-    console.log("Error selecting from todo table");
+    console.log("Error selecting from restaurant table");
+    console.log(err);
+    return null;
+  }
+}
+
+async function getReviewInfo() {
+  let sqlQuery = `
+		SELECT review_id, retaurant_id, reviewer_name, details, rating
+		FROM review;
+	`;
+
+  try {
+    const results = await database.query(sqlQuery);
+    console.log(results[0]);
+    return results[0];
+  } catch (err) {
+    console.log("Error selecting from restaurant table");
     console.log(err);
     return null;
   }
@@ -69,4 +86,9 @@ async function deleteUser(webUserId) {
   }
 }
 
-module.exports = { getAllUsers, addUser, deleteUser };
+module.exports = {
+  getRestaurantInfo,
+  getReviewInfo,
+  addUser,
+  deleteUser,
+};

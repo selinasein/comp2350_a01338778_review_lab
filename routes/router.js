@@ -2,13 +2,11 @@ const router = require("express").Router();
 const database = include("databaseConnection");
 const dbModel = include("databaseAccessLayer");
 
-//const dbModel = include('staticData');
-
 router.get("/", async (req, res) => {
-  console.log("page hit");
-
   try {
-    const result = await dbModel.getAllUsers();
+    const result = await dbModel.getRestaurantInfo();
+    console.log("********************************************");
+    console.log(result);
     res.render("index", { allUsers: result });
 
     //Output the results of the query to the Heroku Logs
