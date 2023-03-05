@@ -5,9 +5,8 @@ const dbModel = include("databaseAccessLayer");
 router.get("/", async (req, res) => {
   try {
     const result = await dbModel.getRestaurantInfo();
-    console.log("********************************************");
     console.log(result);
-    res.render("index", { allUsers: result });
+    res.render("index", { result });
 
     //Output the results of the query to the Heroku Logs
     console.log(result);
@@ -17,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/addUser", async (req, res) => {
+router.post("/showReviews?id=1", async (req, res) => {
   console.log("form submit");
   console.log(req.body);
   try {
